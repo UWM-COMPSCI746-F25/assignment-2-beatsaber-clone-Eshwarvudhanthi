@@ -76,8 +76,9 @@ func get_sword_color() -> Color:
 @export var is_on: bool = false 
 
 @onready var hit_area: Area3D = $Area3D
-@onready var beam: MeshInstance3D = $Beam
+#@onready var beam: MeshInstance3D = $Beam
 @onready var shape: CollisionShape3D = $Area3D/CollisionShape3D
+@onready var beam: MeshInstance3D = $Beam
 
 var _saved_layer := 0
 var _saved_mask := 0
@@ -127,6 +128,16 @@ func _update_enabled() -> void:
 
 	if _mat:
 		_mat.albedo_color = sword_color
+		
+	if is_on:
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = sword_color
+		mat.emission_enabled = true
+		mat.emission = sword_color
+		mat.emission_energy_multiplier = 6.0
+		mat.roughness = 0.2
+		mat.metallic = 0.1
+		beam.set_surface_override_material(0, mat)
 
 func _slice(n: Node) -> void:
 	if !is_on:
@@ -152,3 +163,9 @@ func _on_left_controller_button_pressed(name: String) -> void:
 func _on_right_controller_button_pressed(name: String) -> void:
 	if name == "ax_button" or name == "primary_click":
 		set_on(not is_on)
+		
+	var mat := StandardMaterial3D.new()
+	mat.emission_enabled = true
+	mat.emission = sword_color        # same color as saber
+	mat.emission_energy_multiplier = 5.0
+	beam.set_surface_override_material(0, mat)

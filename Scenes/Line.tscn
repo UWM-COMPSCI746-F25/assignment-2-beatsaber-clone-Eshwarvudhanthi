@@ -1,3 +1,13 @@
-[gd_scene format=3 uid="uid://drfp8yeucdpky"]
+[gd_scene load_steps=3 format=3 uid="uid://drfp8yeucdpky"]
 
-[node name="Line" type="Node3D"]
+[ext_resource type="Script" uid="uid://bl30bds4jeper" path="res://Scenes/LineRenderer.gd" id="1_5dkhj"]
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_5dkhj"]
+
+[node name="Line" type="MeshInstance3D"]
+mesh = SubResource("ImmediateMesh_5dkhj")
+script = ExtResource("1_5dkhj")
+points = [Vector3(0, 0, 0), Vector3(0, 1, 0)]
+startThickness = 0.03
+endThickness = 0.02
+drawCorners = false

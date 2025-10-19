@@ -6,6 +6,10 @@
 [ext_resource type="Script" uid="uid://dp3y4vrtd7i3t" path="res://cube_spawner.gd" id="3_h2yge"]
 
 [sub_resource type="Environment" id="Environment_1bvp3"]
+glow_enabled = true
+glow_intensity = 1.0
+glow_blend_mode = 0
+glow_hdr_threshold = 0.6
 
 [node name="Main" type="Node3D"]
 

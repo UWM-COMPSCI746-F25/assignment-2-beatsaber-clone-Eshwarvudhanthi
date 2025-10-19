@@ -9,8 +9,11 @@ size = Vector3(0.02, 0.02, 1)
 size = Vector3(0.02, 0.02, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbkiw"]
-resource_local_to_scene = true
-albedo_color = Color(0.205117, 0.205117, 0.205117, 1)
+metallic = 0.1
+roughness = 0.2
+emission_enabled = true
+emission = Color(0, 0, 1, 1)
+emission_energy_multiplier = 5.0
 
 [node name="LaserSword" type="Node3D"]
 script = ExtResource("1_dbkiw")
