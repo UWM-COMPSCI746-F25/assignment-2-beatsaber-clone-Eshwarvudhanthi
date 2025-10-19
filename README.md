@@ -19,6 +19,8 @@ Third Party Assets: Sound Effect – "blaster shot single 5.wav"
    License: Creative Commons 0 (Public Domain)  
    Used for saber-hit audio feedback when cubes are destroyed.
 
+   2. Used BeamLineRenderer script provided on canvas.
+
 ## Getting Started
 
 Clone the assignment using GitHub Classroom. Links to some resources will be available on the Canvas assignment page.
