@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://crpt8fadh8pal"]
+
+[ext_resource type="Script" uid="uid://cq3da1ddpf56a" path="res://Scenes/laser_sword.gd" id="1_dbkiw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0k27m"]
+size = Vector3(0.02, 0.02, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1gtyg"]
+size = Vector3(0.02, 0.02, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbkiw"]
+resource_local_to_scene = true
+albedo_color = Color(0.205117, 0.205117, 0.205117, 1)
+
+[node name="LaserSword" type="Node3D"]
+script = ExtResource("1_dbkiw")
+sword_color = null
+is_on = null
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
+shape = SubResource("BoxShape3D_0k27m")
+
+[node name="Beam" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+mesh = SubResource("BoxMesh_1gtyg")
+surface_material_override/0 = SubResource("StandardMaterial3D_dbkiw")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

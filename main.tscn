@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://cj3podpwj1igo"]
+
+[ext_resource type="PackedScene" uid="uid://cfveqdc37scgn" path="res://Scenes/Cube.tscn" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://crpt8fadh8pal" path="res://Scenes/LaserSword.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://chkdvxc2om6pq" path="res://XRStarter.gd" id="2_1bvp3"]
+[ext_resource type="Script" uid="uid://dp3y4vrtd7i3t" path="res://cube_spawner.gd" id="3_h2yge"]
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+
+[node name="Main" type="Node3D"]
+
+[node name="Cube" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -12)
+target = NodePath("../XROrigin3D/XRCamera3D")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+script = ExtResource("2_1bvp3")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(0.997893, -0.000724709, -0.0648766, 0, 0.999938, -0.0111699, 0.0648807, 0.0111463, 0.997831, -0.0047017, 0.0244026, 0.100264)
+
+[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+pose = &"aim"
+
+[node name="LeftSword" parent="XROrigin3D/LeftController" instance=ExtResource("1_ig7tw")]
+sword_color = Color(0, 0, 0.886275, 1)
+is_on = false
+
+[node name="Right Controller" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+pose = &"aim"
+
+[node name="RightSword" parent="XROrigin3D/Right Controller" instance=ExtResource("1_ig7tw")]
+sword_color = Color(1, 0, 0, 1)
+is_on = false
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.386619, 7.45058e-09, -1.48985)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="XROrigin3D"]
+environment = SubResource("Environment_1bvp3")
+
+[node name="Game" type="Node3D" parent="XROrigin3D"]
+
+[node name="CubeSpawner" type="Node3D" parent="." node_paths=PackedStringArray("target", "left_sword", "right_sword")]
+script = ExtResource("3_h2yge")
+cube_scene = ExtResource("1_0xm2m")
+target = NodePath("../XROrigin3D/XRCamera3D")
+spawn_distance = 20.0
+x_range = Vector2(-0.8, 1.2)
+speed_range = Vector2(2, 4)
+left_sword = NodePath("../XROrigin3D/LeftController/LeftSword")
+right_sword = NodePath("../XROrigin3D/Right Controller/RightSword")
+
+[connection signal="button_pressed" from="XROrigin3D/LeftController" to="XROrigin3D/LeftController/LeftSword" method="_on_left_controller_button_pressed"]
+[connection signal="button_pressed" from="XROrigin3D/Right Controller" to="XROrigin3D/Right Controller/RightSword" method="_on_right_controller_button_pressed"]
